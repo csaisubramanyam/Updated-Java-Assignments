@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    default-autowire="byType"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+	
+	
+	<bean id="counterAdvice" class="valtechSpring.aop.CounterAdvice"></bean>
+	
+	<bean id="longafteradvice" class="valtechSpring.aop.LongAfterAdvice"></bean>
+	
+	<bean id="timeradvice" class="valtechSpring.aop.TimerAdvice"></bean>
+	
+	
+	<bean id="arithmetic" class="org.springframework.aop.framework.ProxyFactoryBean">
+	<property name="target">
+	<bean class="valtechSpring.aop.ArithmeticImpl"></bean>
+	</property>
+	<property name="interceptorNames">
+	<list>
+	<value>timeradvice</value>
+	<value>counterAdvice</value>
+	<value>longafteradvice</value>
+	</list>
+	</property>
+	<property name="optimize" value="true"></property>
+	</bean>
+	
+	
+	<bean id="si" class="valtechSpring.aop.SimpleInterestImpl"></bean>
+
+
+</beans>
